@@ -143,6 +143,30 @@
 		B1F747F92EC7E94000F841DB /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F747F82EC7E94000F841DB /* LottieView.swift */; };
 		B1FEB4992C7686630066EBBC /* PanGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FEB4982C7686630066EBBC /* PanGesture.swift */; };
 		F38DE6482D8243E7008B5C6D /* BatteryActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38DE6472D8243E2008B5C6D /* BatteryActivityManager.swift */; };
+		C10C1EA12F0A000000000110 /* AppBundleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000010 /* AppBundleConfiguration.swift */; };
+		C10C1EA12F0A000000000111 /* AppleSpeechTranscriptionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000011 /* AppleSpeechTranscriptionProvider.swift */; };
+		C10C1EA12F0A000000000112 /* AssemblyAIStreamingTranscriptionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000012 /* AssemblyAIStreamingTranscriptionProvider.swift */; };
+		C10C1EA12F0A000000000113 /* BuddyAudioConversionSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000013 /* BuddyAudioConversionSupport.swift */; };
+		C10C1EA12F0A000000000114 /* BuddyDictationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000014 /* BuddyDictationManager.swift */; };
+		C10C1EA12F0A000000000115 /* BuddyTranscriptionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000015 /* BuddyTranscriptionProvider.swift */; };
+		C10C1EA12F0A000000000116 /* ClaudeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000016 /* ClaudeAPI.swift */; };
+		C10C1EA12F0A000000000117 /* ClickyAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000017 /* ClickyAnalytics.swift */; };
+		C10C1EA12F0A000000000118 /* ClickyNotchPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000018 /* ClickyNotchPage.swift */; };
+		C10C1EA12F0A000000000119 /* ClickyRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000019 /* ClickyRuntime.swift */; };
+		C10C1EA12F0A00000000011A /* CompanionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A00000000001A /* CompanionManager.swift */; };
+		C10C1EA12F0A00000000011B /* CompanionPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A00000000001B /* CompanionPanelView.swift */; };
+		C10C1EA12F0A00000000011C /* CompanionResponseOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A00000000001C /* CompanionResponseOverlay.swift */; };
+		C10C1EA12F0A00000000011D /* CompanionScreenCaptureUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A00000000001D /* CompanionScreenCaptureUtility.swift */; };
+		C10C1EA12F0A00000000011E /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A00000000001E /* DesignSystem.swift */; };
+		C10C1EA12F0A00000000011F /* ElementLocationDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A00000000001F /* ElementLocationDetector.swift */; };
+		C10C1EA12F0A000000000120 /* ElevenLabsTTSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000020 /* ElevenLabsTTSClient.swift */; };
+		C10C1EA12F0A000000000121 /* GlobalPushToTalkShortcutMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000021 /* GlobalPushToTalkShortcutMonitor.swift */; };
+		C10C1EA12F0A000000000122 /* MenuBarPanelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000022 /* MenuBarPanelManager.swift */; };
+		C10C1EA12F0A000000000123 /* OpenAIAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000023 /* OpenAIAPI.swift */; };
+		C10C1EA12F0A000000000124 /* OpenAIAudioTranscriptionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000024 /* OpenAIAudioTranscriptionProvider.swift */; };
+		C10C1EA12F0A000000000125 /* OverlayWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000025 /* OverlayWindow.swift */; };
+		C10C1EA12F0A000000000126 /* WindowPositionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000026 /* WindowPositionManager.swift */; };
+		C10C1EA12F0A000000000127 /* ff.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000027 /* ff.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -309,6 +333,30 @@
 		B1F747F82EC7E94000F841DB /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		B1FEB4982C7686630066EBBC /* PanGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanGesture.swift; sourceTree = "<group>"; };
 		F38DE6472D8243E2008B5C6D /* BatteryActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryActivityManager.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A000000000010 /* AppBundleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBundleConfiguration.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A000000000011 /* AppleSpeechTranscriptionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSpeechTranscriptionProvider.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A000000000012 /* AssemblyAIStreamingTranscriptionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyAIStreamingTranscriptionProvider.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A000000000013 /* BuddyAudioConversionSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyAudioConversionSupport.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A000000000014 /* BuddyDictationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyDictationManager.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A000000000015 /* BuddyTranscriptionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyTranscriptionProvider.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A000000000016 /* ClaudeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaudeAPI.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A000000000017 /* ClickyAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickyAnalytics.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A000000000018 /* ClickyNotchPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickyNotchPage.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A000000000019 /* ClickyRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickyRuntime.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A00000000001A /* CompanionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionManager.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A00000000001B /* CompanionPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionPanelView.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A00000000001C /* CompanionResponseOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionResponseOverlay.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A00000000001D /* CompanionScreenCaptureUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionScreenCaptureUtility.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A00000000001E /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A00000000001F /* ElementLocationDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementLocationDetector.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A000000000020 /* ElevenLabsTTSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevenLabsTTSClient.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A000000000021 /* GlobalPushToTalkShortcutMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalPushToTalkShortcutMonitor.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A000000000022 /* MenuBarPanelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPanelManager.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A000000000023 /* OpenAIAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIAPI.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A000000000024 /* OpenAIAudioTranscriptionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIAudioTranscriptionProvider.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A000000000025 /* OverlayWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayWindow.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A000000000026 /* WindowPositionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPositionManager.swift; sourceTree = "<group>"; };
+		C10C1EA12F0A000000000027 /* ff.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ff.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -572,6 +620,7 @@
 				14D570B72C5E98960011E668 /* animations */,
 				147163B52C5D804B0068B555 /* managers */,
 				1153BD8E2D986B1F00979FB0 /* MediaControllers */,
+				C10C1EA12F0A000000000001 /* Clicky */,
 				B15063502C63D3F600EBB0E3 /* extensions */,
 				1471639B2C5D362F0068B555 /* components */,
 				14CEF4152C5CAED300855D72 /* boringNotchApp.swift */,
@@ -757,6 +806,37 @@
 			path = Tips;
 			sourceTree = "<group>";
 		};
+		C10C1EA12F0A000000000001 /* Clicky */ = {
+			isa = PBXGroup;
+			children = (
+				C10C1EA12F0A000000000010 /* AppBundleConfiguration.swift */,
+				C10C1EA12F0A000000000011 /* AppleSpeechTranscriptionProvider.swift */,
+				C10C1EA12F0A000000000012 /* AssemblyAIStreamingTranscriptionProvider.swift */,
+				C10C1EA12F0A000000000013 /* BuddyAudioConversionSupport.swift */,
+				C10C1EA12F0A000000000014 /* BuddyDictationManager.swift */,
+				C10C1EA12F0A000000000015 /* BuddyTranscriptionProvider.swift */,
+				C10C1EA12F0A000000000016 /* ClaudeAPI.swift */,
+				C10C1EA12F0A000000000017 /* ClickyAnalytics.swift */,
+				C10C1EA12F0A000000000018 /* ClickyNotchPage.swift */,
+				C10C1EA12F0A000000000019 /* ClickyRuntime.swift */,
+				C10C1EA12F0A00000000001A /* CompanionManager.swift */,
+				C10C1EA12F0A00000000001B /* CompanionPanelView.swift */,
+				C10C1EA12F0A00000000001C /* CompanionResponseOverlay.swift */,
+				C10C1EA12F0A00000000001D /* CompanionScreenCaptureUtility.swift */,
+				C10C1EA12F0A00000000001E /* DesignSystem.swift */,
+				C10C1EA12F0A00000000001F /* ElementLocationDetector.swift */,
+				C10C1EA12F0A000000000020 /* ElevenLabsTTSClient.swift */,
+				C10C1EA12F0A000000000021 /* GlobalPushToTalkShortcutMonitor.swift */,
+				C10C1EA12F0A000000000022 /* MenuBarPanelManager.swift */,
+				C10C1EA12F0A000000000023 /* OpenAIAPI.swift */,
+				C10C1EA12F0A000000000024 /* OpenAIAudioTranscriptionProvider.swift */,
+				C10C1EA12F0A000000000025 /* OverlayWindow.swift */,
+				C10C1EA12F0A000000000026 /* WindowPositionManager.swift */,
+				C10C1EA12F0A000000000027 /* ff.mp3 */,
+			);
+			path = Clicky;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -888,6 +968,7 @@
 				112B0EB92E30DD0F00562D6C /* mediaremote-adapter.pl in Resources */,
 				B17266E12C6532560031BA0D /* Localizable.xcstrings in Resources */,
 				14A7E5972C65FD31008C1BE9 /* boring.m4a in Resources */,
+				C10C1EA12F0A000000000127 /* ff.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1020,6 +1101,29 @@
 				1100290C2E847E2800035A57 /* NSItemProvider+LoadHelpers.swift in Sources */,
 				11CFC6632E09918400748C80 /* MusicControllerSelectionView.swift in Sources */,
 				B1F0A0022E60000100000001 /* BrightnessManager.swift in Sources */,
+				C10C1EA12F0A000000000110 /* AppBundleConfiguration.swift in Sources */,
+				C10C1EA12F0A000000000111 /* AppleSpeechTranscriptionProvider.swift in Sources */,
+				C10C1EA12F0A000000000112 /* AssemblyAIStreamingTranscriptionProvider.swift in Sources */,
+				C10C1EA12F0A000000000113 /* BuddyAudioConversionSupport.swift in Sources */,
+				C10C1EA12F0A000000000114 /* BuddyDictationManager.swift in Sources */,
+				C10C1EA12F0A000000000115 /* BuddyTranscriptionProvider.swift in Sources */,
+				C10C1EA12F0A000000000116 /* ClaudeAPI.swift in Sources */,
+				C10C1EA12F0A000000000117 /* ClickyAnalytics.swift in Sources */,
+				C10C1EA12F0A000000000118 /* ClickyNotchPage.swift in Sources */,
+				C10C1EA12F0A000000000119 /* ClickyRuntime.swift in Sources */,
+				C10C1EA12F0A00000000011A /* CompanionManager.swift in Sources */,
+				C10C1EA12F0A00000000011B /* CompanionPanelView.swift in Sources */,
+				C10C1EA12F0A00000000011C /* CompanionResponseOverlay.swift in Sources */,
+				C10C1EA12F0A00000000011D /* CompanionScreenCaptureUtility.swift in Sources */,
+				C10C1EA12F0A00000000011E /* DesignSystem.swift in Sources */,
+				C10C1EA12F0A00000000011F /* ElementLocationDetector.swift in Sources */,
+				C10C1EA12F0A000000000120 /* ElevenLabsTTSClient.swift in Sources */,
+				C10C1EA12F0A000000000121 /* GlobalPushToTalkShortcutMonitor.swift in Sources */,
+				C10C1EA12F0A000000000122 /* MenuBarPanelManager.swift in Sources */,
+				C10C1EA12F0A000000000123 /* OpenAIAPI.swift in Sources */,
+				C10C1EA12F0A000000000124 /* OpenAIAudioTranscriptionProvider.swift in Sources */,
+				C10C1EA12F0A000000000125 /* OverlayWindow.swift in Sources */,
+				C10C1EA12F0A000000000126 /* WindowPositionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

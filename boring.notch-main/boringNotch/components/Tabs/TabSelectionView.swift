@@ -10,13 +10,18 @@ import SwiftUI
 struct TabModel: Identifiable {
     let id = UUID()
     let label: String
-    let icon: String
+    let icon: TabIcon
     let view: NotchViews
 }
 
 let tabs = [
-    TabModel(label: "Home", icon: "house.fill", view: .home),
-    TabModel(label: "Shelf", icon: "tray.fill", view: .shelf)
+    TabModel(label: "Home", icon: .sfSymbol("house.fill"), view: .home),
+    TabModel(label: "Shelf", icon: .sfSymbol("tray.fill"), view: .shelf),
+    TabModel(
+        label: "Clicky",
+        icon: .custom(AnyView(ClickyTriangleIcon().frame(width: 14, height: 14))),
+        view: .clicky
+    ),
 ]
 
 struct TabSelectionView: View {

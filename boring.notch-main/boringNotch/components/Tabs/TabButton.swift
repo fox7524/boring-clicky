@@ -9,13 +9,13 @@ import SwiftUI
 
 struct TabButton: View {
     let label: String
-    let icon: String
+    let icon: TabIcon
     let selected: Bool
     let onClick: () -> Void
     
     var body: some View {
         Button(action: onClick) {
-            Image(systemName: icon)
+            icon.render()
                 .padding(.horizontal, 15)
                 .contentShape(Capsule())
         }
@@ -24,7 +24,7 @@ struct TabButton: View {
 }
 
 #Preview {
-    TabButton(label: "Home", icon: "tray.fill", selected: true) {
+    TabButton(label: "Home", icon: .sfSymbol("tray.fill"), selected: true) {
         print("Tapped")
     }
 }

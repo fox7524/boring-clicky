@@ -86,6 +86,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         cleanupDragDetectors()
         cleanupWindows()
         XPCHelperClient.shared.stopMonitoringAccessibilityAuthorization()
+        Task { @MainActor in
+            ClickyRuntime.shared.stop()
+        }
     }
 
     @MainActor
@@ -287,6 +290,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             name: NSApplication.didChangeScreenParametersNotification,
             object: nil
         )
+
+        Task { @MainActor in
+            // Start Clicky as part of the merged app so it's ready immediately.
+            ClickyRuntime.shared.start()
+        }
 
         NotificationCenter.default.addObserver(
             forName: Notification.Name.selectedScreenChanged, object: nil, queue: nil

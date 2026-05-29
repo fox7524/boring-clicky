@@ -11,7 +11,8 @@ enum AppBundleConfiguration {
     static func stringValue(forKey key: String) -> String? {
         if let value = Bundle.main.object(forInfoDictionaryKey: key) as? String {
             let trimmedValue = value.trimmingCharacters(in: .whitespacesAndNewlines)
-            if !trimmedValue.isEmpty {
+            if !trimmedValue.isEmpty,
+               !(trimmedValue.hasPrefix("$(") && trimmedValue.hasSuffix(")")) {
                 return trimmedValue
             }
         }
@@ -23,6 +24,8 @@ enum AppBundleConfiguration {
         }
 
         let trimmedValue = value.trimmingCharacters(in: .whitespacesAndNewlines)
-        return trimmedValue.isEmpty ? nil : trimmedValue
+        guard !trimmedValue.isEmpty else { return nil }
+        guard !(trimmedValue.hasPrefix("$(") && trimmedValue.hasSuffix(")")) else { return nil }
+        return trimmedValue
     }
 }

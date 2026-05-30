@@ -320,7 +320,7 @@ struct BlueCursorView: View {
                         : nil,
                     value: cursorPosition
                 )
-                .animation(.easeIn(duration: 0.25), value: companionManager.voiceState)
+                .animation(.spring(response: 0.2, dampingFraction: 0.6, blendDuration: 0), value: companionManager.voiceState)
                 .animation(
                     buddyNavigationMode == .navigatingToTarget ? nil : .easeInOut(duration: 0.3),
                     value: triangleRotationDegrees
@@ -777,8 +777,8 @@ private struct BlueCursorSpinnerView: View {
     }
 }
 
-// Manager for overlay windows — creates one per screen so the cursor
-// buddy seamlessly follows the cursor across multiple monitors.
+// MARK: - OverlayWindowManager
+
 @MainActor
 class OverlayWindowManager {
     private var overlayWindows: [OverlayWindow] = []

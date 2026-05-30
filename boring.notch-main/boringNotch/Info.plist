@@ -4,6 +4,14 @@
 <dict>
 	<key>CLICKY_WORKER_BASE_URL</key>
 	<string>$(CLICKY_WORKER_BASE_URL)</string>
+	<key>CLICKY_ENABLE_ONBOARDING_VIDEO_STREAM</key>
+	<false/>
+	<key>CLICKY_ENABLE_EMAIL_SUBMIT</key>
+	<false/>
+	<key>CLICKY_ENABLE_EXTERNAL_LINKS</key>
+	<false/>
+	<key>CLICKY_ENABLE_ANALYTICS</key>
+	<false/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Clicky uses your microphone so you can talk to it.</string>
 	<key>NSScreenCaptureUsageDescription</key>

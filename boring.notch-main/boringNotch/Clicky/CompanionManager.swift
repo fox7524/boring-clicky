@@ -161,7 +161,15 @@ final class CompanionManager: ObservableObject {
         // Identify user in analytics (no-op if PostHog isn't linked)
         ClickyAnalytics.identify(email: trimmedEmail)
 
-        // Submit to FormSpark
+        // NOTE: In the merged app we default to NOT sending emails to any external endpoint.
+        // If you want to re-enable, set CLICKY_ENABLE_EMAIL_SUBMIT=true in Info.plist.
+        let enableEmailSubmit = AppBundleConfiguration.boolValue(
+            forKey: "CLICKY_ENABLE_EMAIL_SUBMIT",
+            default: false
+        )
+        guard enableEmailSubmit else { return }
+
+        // Submit to FormSpark (optional)
         Task {
             var request = URLRequest(url: URL(string: "https://submit-form.com/RWbGJxmIs")!)
             request.httpMethod = "POST"
@@ -826,6 +834,15 @@ final class CompanionManager: ObservableObject {
     /// Sets up the onboarding video player, starts playback, and schedules
     /// the demo interaction at 40s. Called by BlueCursorView when onboarding starts.
     func setupOnboardingVideo() {
+        let enableVideoStream = AppBundleConfiguration.boolValue(
+            forKey: "CLICKY_ENABLE_ONBOARDING_VIDEO_STREAM",
+            default: false
+        )
+        guard enableVideoStream else {
+            // Skip remote onboarding video (Mux stream). We'll still show the prompt.
+            startOnboardingPromptStream()
+            return
+        }
         guard let videoURL = URL(string: "https://stream.mux.com/e5jB8UuSrtFABVnTHCR7k3sIsmcUHCyhtLu1tzqLlfs.m3u8") else { return }
 
         let player = AVPlayer(url: videoURL)

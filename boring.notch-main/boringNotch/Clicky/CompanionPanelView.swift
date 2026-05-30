@@ -87,7 +87,8 @@ struct CompanionPanelView: View {
             //         .padding(.horizontal, 16)
             // }
 
-            if companionManager.hasCompletedOnboarding && companionManager.allPermissionsGranted {
+            if companionManager.hasCompletedOnboarding && companionManager.allPermissionsGranted
+                && AppBundleConfiguration.boolValue(forKey: "CLICKY_ENABLE_EXTERNAL_LINKS", default: false) {
                 Spacer()
                     .frame(height: 16)
 

@@ -73,14 +73,16 @@ struct Triangle: Shape {
 }
 
 // PreferenceKey for tracking bubble size
-struct SizePreferenceKey: PreferenceKey {
+// NOTE: Marked private to avoid type name collisions with Boring Notch code.
+private struct SizePreferenceKey: PreferenceKey {
     static var defaultValue: CGSize = .zero
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
         value = nextValue()
     }
 }
 
-struct NavigationBubbleSizePreferenceKey: PreferenceKey {
+// NOTE: Marked private to avoid type name collisions with Boring Notch code.
+private struct NavigationBubbleSizePreferenceKey: PreferenceKey {
     static var defaultValue: CGSize = .zero
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
         value = nextValue()

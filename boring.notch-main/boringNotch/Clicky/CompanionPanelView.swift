@@ -10,11 +10,40 @@
 import AVFoundation
 import SwiftUI
 
+enum ClickyHostSurface {
+    case menuBarPanel
+    case boringNotch
+}
+
 struct CompanionPanelView: View {
     @ObservedObject var companionManager: CompanionManager
     @State private var emailInput: String = ""
+    private let hostSurface: ClickyHostSurface
+
+    init(companionManager: CompanionManager, hostSurface: ClickyHostSurface = .menuBarPanel) {
+        self.companionManager = companionManager
+        self.hostSurface = hostSurface
+    }
 
     var body: some View {
+        Group {
+            switch hostSurface {
+            case .menuBarPanel:
+                panelContent
+                    .frame(width: 320)
+                    .background(panelBackground)
+
+            case .boringNotch:
+                ScrollView {
+                    panelContent
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                }
+                .scrollIndicators(.never)
+            }
+        }
+    }
+
+    private var panelContent: some View {
         VStack(alignment: .leading, spacing: 0) {
             panelHeader
             Divider()
@@ -73,12 +102,12 @@ struct CompanionPanelView: View {
                 .background(DS.Colors.borderSubtle)
                 .padding(.horizontal, 16)
 
-            footerSection
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
+            if hostSurface == .menuBarPanel {
+                footerSection
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
+            }
         }
-        .frame(width: 320)
-        .background(panelBackground)
     }
 
     // MARK: - Header
@@ -103,20 +132,22 @@ struct CompanionPanelView: View {
                 .font(.system(size: 12, weight: .medium))
                 .foregroundColor(DS.Colors.textTertiary)
 
-            Button(action: {
-                NotificationCenter.default.post(name: .clickyDismissPanel, object: nil)
-            }) {
-                Image(systemName: "xmark")
-                    .font(.system(size: 10, weight: .semibold))
-                    .foregroundColor(DS.Colors.textTertiary)
-                    .frame(width: 20, height: 20)
-                    .background(
-                        Circle()
-                            .fill(Color.white.opacity(0.08))
-                    )
+            if hostSurface == .menuBarPanel {
+                Button(action: {
+                    NotificationCenter.default.post(name: .clickyDismissPanel, object: nil)
+                }) {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 10, weight: .semibold))
+                        .foregroundColor(DS.Colors.textTertiary)
+                        .frame(width: 20, height: 20)
+                        .background(
+                            Circle()
+                                .fill(Color.white.opacity(0.08))
+                        )
+                }
+                .buttonStyle(.plain)
+                .pointerCursor()
             }
-            .buttonStyle(.plain)
-            .pointerCursor()
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 14)

@@ -73,16 +73,16 @@ struct Triangle: Shape {
 }
 
 // PreferenceKey for tracking bubble size
-// NOTE: Marked private to avoid type name collisions with Boring Notch code.
-private struct SizePreferenceKey: PreferenceKey {
+// NOTE: Must be uniquely named across the whole app module (Swift doesn't allow
+// duplicate top-level type names even if they're `private`).
+private struct ClickySizePreferenceKey: PreferenceKey {
     static var defaultValue: CGSize = .zero
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
         value = nextValue()
     }
 }
 
-// NOTE: Marked private to avoid type name collisions with Boring Notch code.
-private struct NavigationBubbleSizePreferenceKey: PreferenceKey {
+private struct ClickyNavigationBubbleSizePreferenceKey: PreferenceKey {
     static var defaultValue: CGSize = .zero
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
         value = nextValue()
@@ -206,14 +206,14 @@ struct BlueCursorView: View {
                     .overlay(
                         GeometryReader { geo in
                             Color.clear
-                                .preference(key: SizePreferenceKey.self, value: geo.size)
+                                .preference(key: ClickySizePreferenceKey.self, value: geo.size)
                         }
                     )
                     .opacity(bubbleOpacity)
                     .position(x: cursorPosition.x + 10 + (bubbleSize.width / 2), y: cursorPosition.y + 18)
                     .animation(.spring(response: 0.2, dampingFraction: 0.6, blendDuration: 0), value: cursorPosition)
                     .animation(.easeOut(duration: 0.5), value: bubbleOpacity)
-                    .onPreferenceChange(SizePreferenceKey.self) { newSize in
+                    .onPreferenceChange(ClickySizePreferenceKey.self) { newSize in
                         bubbleSize = newSize
                     }
             }
@@ -250,14 +250,14 @@ struct BlueCursorView: View {
                     .overlay(
                         GeometryReader { geo in
                             Color.clear
-                                .preference(key: SizePreferenceKey.self, value: geo.size)
+                                .preference(key: ClickySizePreferenceKey.self, value: geo.size)
                         }
                     )
                     .opacity(companionManager.onboardingPromptOpacity)
                     .position(x: cursorPosition.x + 10 + (bubbleSize.width / 2), y: cursorPosition.y + 18)
                     .animation(.spring(response: 0.2, dampingFraction: 0.6, blendDuration: 0), value: cursorPosition)
                     .animation(.easeOut(duration: 0.4), value: companionManager.onboardingPromptOpacity)
-                    .onPreferenceChange(SizePreferenceKey.self) { newSize in
+                    .onPreferenceChange(ClickySizePreferenceKey.self) { newSize in
                         bubbleSize = newSize
                     }
             }
@@ -284,7 +284,7 @@ struct BlueCursorView: View {
                     .overlay(
                         GeometryReader { geo in
                             Color.clear
-                                .preference(key: NavigationBubbleSizePreferenceKey.self, value: geo.size)
+                                .preference(key: ClickyNavigationBubbleSizePreferenceKey.self, value: geo.size)
                         }
                     )
                     .scaleEffect(navigationBubbleScale)
@@ -293,7 +293,7 @@ struct BlueCursorView: View {
                     .animation(.spring(response: 0.2, dampingFraction: 0.6, blendDuration: 0), value: cursorPosition)
                     .animation(.spring(response: 0.4, dampingFraction: 0.6), value: navigationBubbleScale)
                     .animation(.easeOut(duration: 0.5), value: navigationBubbleOpacity)
-                    .onPreferenceChange(NavigationBubbleSizePreferenceKey.self) { newSize in
+                    .onPreferenceChange(ClickyNavigationBubbleSizePreferenceKey.self) { newSize in
                         navigationBubbleSize = newSize
                     }
             }

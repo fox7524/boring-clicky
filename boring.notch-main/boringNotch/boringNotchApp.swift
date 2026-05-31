@@ -67,6 +67,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var isScreenLocked: Bool = false
     private var windowScreenDidChangeObserver: Any?
     private var dragDetectors: [String: DragDetector] = [:] // UUID -> DragDetector
+    private var windowResizeCancellables: [ObjectIdentifier: AnyCancellable] = [:]
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return false
@@ -264,6 +265,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     self?.setupDragDetectors()
                 }
         }
+
+        // Resize the window when the notch opens/closes or its desired height changes
+        // (e.g. adaptive Clicky tab height).
+        let key = ObjectIdentifier(window)
+        windowResizeCancellables[key] = Publishers.CombineLatest(viewModel.$notchState, viewModel.$notchSize)
+            .receive(on: RunLoop.main)
+            .sink { [weak self, weak window] _, _ in
+                guard let self, let window else { return }
+                guard let currentScreen = window.screen ?? NSScreen.screen(withUUID: viewModel.screenUUID ?? "") ?? NSScreen.main else { return }
+                Task { @MainActor in
+                    self.applyWindowSize(window, viewModel: viewModel, on: currentScreen)
+                }
+            }
+
+        // Apply initial sizing/positioning.
+        applyWindowSize(window, viewModel: viewModel, on: screen)
         return window
     }
 
@@ -280,6 +297,35 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 y: screenFrame.origin.y + screenFrame.height - window.frame.height
             ))
         window.alphaValue = 1
+    }
+
+    @MainActor
+    private func applyWindowSize(_ window: NSWindow, viewModel: BoringViewModel, on screen: NSScreen) {
+        // Default window size stays as-is when the notch is closed.
+        // When open, we allow the notch height to expand (e.g. Clicky tab).
+        let targetHeight: CGFloat = {
+            switch viewModel.notchState {
+            case .open:
+                return viewModel.notchSize.height + shadowPadding
+            case .closed:
+                return windowSize.height
+            }
+        }()
+
+        let targetFrame = NSRect(
+            x: screen.frame.origin.x + (screen.frame.width / 2) - windowSize.width / 2,
+            y: screen.frame.origin.y + screen.frame.height - targetHeight,
+            width: windowSize.width,
+            height: targetHeight
+        )
+
+        // Avoid unnecessary animation spam.
+        if window.frame.size != targetFrame.size {
+            window.setFrame(targetFrame, display: true, animate: true)
+        } else {
+            // Still ensure it stays pinned to top if only Y needs adjusting.
+            window.setFrameOrigin(NSPoint(x: targetFrame.origin.x, y: targetFrame.origin.y))
+        }
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {

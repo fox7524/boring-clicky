@@ -15,14 +15,29 @@ enum ClickyHostSurface {
     case boringNotch
 }
 
+private struct ClickyPanelContentHeightPreferenceKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
+}
+
 struct CompanionPanelView: View {
     @ObservedObject var companionManager: CompanionManager
     @State private var emailInput: String = ""
     private let hostSurface: ClickyHostSurface
+    private let onContentHeightChange: ((CGFloat) -> Void)?
 
-    init(companionManager: CompanionManager, hostSurface: ClickyHostSurface = .menuBarPanel) {
+    @FocusState private var isEmailFocused: Bool
+
+    init(
+        companionManager: CompanionManager,
+        hostSurface: ClickyHostSurface = .menuBarPanel,
+        onContentHeightChange: ((CGFloat) -> Void)? = nil
+    ) {
         self.companionManager = companionManager
         self.hostSurface = hostSurface
+        self.onContentHeightChange = onContentHeightChange
     }
 
     var body: some View {
@@ -40,6 +55,11 @@ struct CompanionPanelView: View {
                 }
                 .scrollIndicators(.never)
             }
+        }
+        .onPreferenceChange(ClickyPanelContentHeightPreferenceKey.self) { height in
+            // The panel content height is used by Boring Notch to expand the notch window
+            // when the Clicky tab is selected.
+            onContentHeightChange?(height)
         }
     }
 
@@ -109,6 +129,12 @@ struct CompanionPanelView: View {
                     .padding(.vertical, 12)
             }
         }
+        .background(
+            GeometryReader { geo in
+                Color.clear
+                    .preference(key: ClickyPanelContentHeightPreferenceKey.self, value: geo.size.height)
+            }
+        )
     }
 
     // MARK: - Header
@@ -222,6 +248,7 @@ struct CompanionPanelView: View {
                         .textFieldStyle(.plain)
                         .font(.system(size: 13))
                         .foregroundColor(DS.Colors.textPrimary)
+                        .focused($isEmailFocused)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
                         .background(
@@ -232,6 +259,11 @@ struct CompanionPanelView: View {
                             RoundedRectangle(cornerRadius: DS.CornerRadius.medium, style: .continuous)
                                 .stroke(DS.Colors.borderSubtle, lineWidth: 0.5)
                         )
+                        .overlay(IBeamCursorView())
+                        .onTapGesture {
+                            // Make sure the field actually becomes first responder.
+                            isEmailFocused = true
+                        }
 
                     Button(action: {
                         companionManager.submitEmail(emailInput)

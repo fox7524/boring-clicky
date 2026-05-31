@@ -32,6 +32,10 @@ extension SkyLightOperator {
 }
 
 class BoringNotchSkyLightWindow: NSPanel {
+    /// Allows specific pages (e.g. Clicky tab) to accept focus in text fields.
+    /// Default is false to avoid stealing keyboard focus.
+    static var allowKeyWindow: Bool = false
+
     private var isSkyLightEnabled: Bool = false
     
     override init(
@@ -109,6 +113,6 @@ class BoringNotchSkyLightWindow: NSPanel {
     
     private var observers: Set<AnyCancellable> = []
     
-    override var canBecomeKey: Bool { false }
+    override var canBecomeKey: Bool { Self.allowKeyWindow }
     override var canBecomeMain: Bool { false }
 }

@@ -194,7 +194,12 @@ final class CompanionManager: ObservableObject {
         // still granted, show the cursor overlay immediately. If permissions
         // were revoked (e.g. signing change), don't show the cursor — the
         // panel will show the permissions UI instead.
-        if hasCompletedOnboarding && allPermissionsGranted && isClickyCursorEnabled {
+        let enableDesktopOverlay = AppBundleConfiguration.boolValue(
+            forKey: "CLICKY_ENABLE_DESKTOP_OVERLAY",
+            default: false
+        )
+
+        if enableDesktopOverlay && hasCompletedOnboarding && allPermissionsGranted && isClickyCursorEnabled {
             overlayWindowManager.hasShownOverlayBefore = true
             overlayWindowManager.showOverlay(onScreens: NSScreen.screens, companionManager: self)
             isOverlayVisible = true

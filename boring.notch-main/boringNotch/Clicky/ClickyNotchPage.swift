@@ -53,7 +53,10 @@ struct ClickyNotchPage: View {
         let screenHeight = screen?.visibleFrame.height ?? screen?.frame.height ?? 900
 
         let minHeight = openNotchSize.height
-        let maxHeight = screenHeight * 0.5
+        // While permissions/onboarding are incomplete, the panel is taller, so allow more height
+        // to reduce scrolling. Once fully set up, keep the cap tighter to preserve "notch-ness".
+        let maxHeightFraction: CGFloat = ClickyRuntime.shared.companionManager.allPermissionsGranted ? 0.5 : 0.7
+        let maxHeight = screenHeight * maxHeightFraction
 
         // Small padding so the bottom content doesn't sit on the edge.
         let padded = contentHeight + 8

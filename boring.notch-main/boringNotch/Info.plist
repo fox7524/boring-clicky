@@ -12,6 +12,8 @@
 	<false/>
 	<key>CLICKY_ENABLE_ANALYTICS</key>
 	<false/>
+	<key>CLICKY_ENABLE_DESKTOP_OVERLAY</key>
+	<false/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Clicky uses your microphone so you can talk to it.</string>
 	<key>NSScreenCaptureUsageDescription</key>

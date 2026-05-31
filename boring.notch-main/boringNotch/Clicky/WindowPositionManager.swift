@@ -121,7 +121,21 @@ class WindowPositionManager {
             return .alreadyGranted
         case .systemPrompt:
             hasAttemptedScreenRecordingSystemPromptDuringCurrentLaunch = true
-            _ = CGRequestScreenCaptureAccess()
+            // IMPORTANT: When running as an accessory / non-activating panel app,
+            // the system prompt can fail to appear unless the app is activated.
+            let previousPolicy = NSApp.activationPolicy()
+            NSApp.setActivationPolicy(.regular)
+            NSApp.activate(ignoringOtherApps: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                _ = CGRequestScreenCaptureAccess()
+
+                // Restore original activation policy shortly after triggering the prompt
+                // to avoid leaving a dock icon visible.
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    NSApp.setActivationPolicy(previousPolicy)
+                    NSApp.deactivate()
+                }
+            }
         case .systemSettings:
             openScreenRecordingSettings()
         }

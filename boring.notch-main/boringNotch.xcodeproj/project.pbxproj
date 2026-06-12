@@ -144,7 +144,6 @@
 		B1F0A0022E60000100000001 /* BrightnessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F0A0012E60000100000001 /* BrightnessManager.swift */; };
 		B1F747F92EC7E94000F841DB /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F747F82EC7E94000F841DB /* LottieView.swift */; };
 		B1FEB4992C7686630066EBBC /* PanGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FEB4982C7686630066EBBC /* PanGesture.swift */; };
-		F38DE6482D8243E7008B5C6D /* BatteryActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38DE6472D8243E2008B5C6D /* BatteryActivityManager.swift */; };
 		C10C1EA12F0A000000000110 /* AppBundleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000010 /* AppBundleConfiguration.swift */; };
 		C10C1EA12F0A000000000111 /* AppleSpeechTranscriptionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000011 /* AppleSpeechTranscriptionProvider.swift */; };
 		C10C1EA12F0A000000000112 /* AssemblyAIStreamingTranscriptionProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000012 /* AssemblyAIStreamingTranscriptionProvider.swift */; };
@@ -169,6 +168,7 @@
 		C10C1EA12F0A000000000125 /* OverlayWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000025 /* OverlayWindow.swift */; };
 		C10C1EA12F0A000000000126 /* WindowPositionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000026 /* WindowPositionManager.swift */; };
 		C10C1EA12F0A000000000127 /* ff.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C10C1EA12F0A000000000027 /* ff.mp3 */; };
+		F38DE6482D8243E7008B5C6D /* BatteryActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38DE6472D8243E2008B5C6D /* BatteryActivityManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -336,7 +336,6 @@
 		B1F0A0012E60000100000001 /* BrightnessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightnessManager.swift; sourceTree = "<group>"; };
 		B1F747F82EC7E94000F841DB /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		B1FEB4982C7686630066EBBC /* PanGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanGesture.swift; sourceTree = "<group>"; };
-		F38DE6472D8243E2008B5C6D /* BatteryActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryActivityManager.swift; sourceTree = "<group>"; };
 		C10C1EA12F0A000000000010 /* AppBundleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBundleConfiguration.swift; sourceTree = "<group>"; };
 		C10C1EA12F0A000000000011 /* AppleSpeechTranscriptionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSpeechTranscriptionProvider.swift; sourceTree = "<group>"; };
 		C10C1EA12F0A000000000012 /* AssemblyAIStreamingTranscriptionProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyAIStreamingTranscriptionProvider.swift; sourceTree = "<group>"; };
@@ -361,6 +360,7 @@
 		C10C1EA12F0A000000000025 /* OverlayWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayWindow.swift; sourceTree = "<group>"; };
 		C10C1EA12F0A000000000026 /* WindowPositionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowPositionManager.swift; sourceTree = "<group>"; };
 		C10C1EA12F0A000000000027 /* ff.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ff.mp3; sourceTree = "<group>"; };
+		F38DE6472D8243E2008B5C6D /* BatteryActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryActivityManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */

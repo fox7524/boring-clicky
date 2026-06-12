@@ -393,8 +393,8 @@ struct BlueCursorView: View {
     /// Whether the buddy triangle should be visible on this screen.
     /// True when cursor is on this screen during normal following, or
     /// when navigating/pointing at a target on this screen. When another
-    /// screen is navigating (detectedElementScreenLocation is set but this
-    /// screen isn't the one animating), hide the cursor so only one buddy
+    /// screen's BlueCursorView is navigating to an element,
+    /// hide the cursor on this screen to prevent a duplicate buddy
     /// is ever visible at a time.
     private var buddyIsVisibleOnThisScreen: Bool {
         switch buddyNavigationMode {
@@ -564,8 +564,7 @@ struct BlueCursorView: View {
             // and atan2 returns 0° for rightward movement
             self.triangleRotationDegrees = atan2(tangentY, tangentX) * (180.0 / .pi) + 90.0
 
-            // Scale pulse: sin curve peaks at midpoint of the flight.
-            // Buddy grows to ~1.3x at the apex, then shrinks back to 1.0x on landing.
+            // Scale pulse: sin curve peaks at midpoint of the flight
             let scalePulse = sin(linearProgress * .pi)
             self.buddyFlightScale = 1.0 + scalePulse * 0.3
         }
@@ -585,8 +584,8 @@ struct BlueCursorView: View {
         navigationBubbleSize = .zero
         navigationBubbleScale = 0.5
 
-        // Use custom bubble text from the companion manager (e.g. onboarding demo)
-        // if available, otherwise fall back to a random pointer phrase
+        // Use custom bubble text from the companion manager if available,
+        // otherwise fall back to a random pointer phrase
         let pointerPhrase = companionManager.detectedElementBubbleText
             ?? navigationPointerPhrases.randomElement()
             ?? "right here!"
@@ -627,11 +626,7 @@ struct BlueCursorView: View {
 
         let characterDelay = Double.random(in: 0.03...0.06)
         DispatchQueue.main.asyncAfter(deadline: .now() + characterDelay) {
-            self.streamNavigationBubbleCharacter(
-                phrase: phrase,
-                characterIndex: characterIndex + 1,
-                onComplete: onComplete
-            )
+            self.streamNavigationBubbleCharacter(phrase: phrase, characterIndex: characterIndex + 1, onComplete: onComplete)
         }
     }
 
@@ -639,14 +634,10 @@ struct BlueCursorView: View {
     private func startFlyingBackToCursor() {
         let mouseLocation = NSEvent.mouseLocation
         let cursorInSwiftUI = convertScreenPointToSwiftUICoordinates(mouseLocation)
-        let cursorWithTrackingOffset = CGPoint(x: cursorInSwiftUI.x + 35, y: cursorInSwiftUI.y + 25)
+        let destinationWithOffset = CGPoint(x: cursorInSwiftUI.x + 35, y: cursorInSwiftUI.y + 20)
 
-        cursorPositionWhenNavigationStarted = cursorInSwiftUI
-
-        buddyNavigationMode = .navigatingToTarget
-        isReturningToCursor = true
-
-        animateBezierFlightArc(to: cursorWithTrackingOffset) {
+        animateBezierFlightArc(to: destinationWithOffset) {
+            guard self.buddyNavigationMode == .navigatingToTarget else { return }
             self.finishNavigationAndResumeFollowing()
         }
     }
@@ -657,7 +648,6 @@ struct BlueCursorView: View {
         navigationAnimationTimer = nil
         navigationBubbleText = ""
         navigationBubbleOpacity = 0.0
-        navigationBubbleScale = 1.0
         buddyFlightScale = 1.0
         finishNavigationAndResumeFollowing()
     }
@@ -669,10 +659,6 @@ struct BlueCursorView: View {
         buddyNavigationMode = .followingCursor
         isReturningToCursor = false
         triangleRotationDegrees = -35.0
-        buddyFlightScale = 1.0
-        navigationBubbleText = ""
-        navigationBubbleOpacity = 0.0
-        navigationBubbleScale = 1.0
         companionManager.clearDetectedElementLocation()
     }
 
@@ -690,17 +676,17 @@ struct BlueCursorView: View {
                 // Hold the text for 2 seconds, then fade it out
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     self.bubbleOpacity = 0.0
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                    self.showWelcome = false
-                    // Start the onboarding video right after the welcome text disappears
-                    self.companionManager.setupOnboardingVideo()
-                }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                        self.showWelcome = false
+                        // Start the onboarding video right after the welcome text disappears
+                        self.companionManager.setupOnboardingVideo()
+                    }
                 return
             }
 
             let index = self.fullWelcomeMessage.index(self.fullWelcomeMessage.startIndex, offsetBy: currentIndex)
             self.welcomeText.append(self.fullWelcomeMessage[index])
+
             currentIndex += 1
         }
     }
@@ -731,18 +717,24 @@ private struct BlueCursorWaveformView: View {
                         )
                 }
             }
-            .shadow(color: DS.Colors.overlayCursorBlue.opacity(0.6), radius: 6, x: 0, y: 0)
-            .animation(.linear(duration: 0.08), value: audioPowerLevel)
+            .shadow(
+                color: DS.Colors.overlayCursorBlue.opacity(0.6),
+                radius: 6,
+                x: 0,
+                y: 0
+            )
+            .animation(.linear(duration: 1.0), value: audioPowerLevel)
         }
     }
 
     private func barHeight(for barIndex: Int, timelineDate: Date) -> CGFloat {
-        let animationPhase = CGFloat(timelineDate.timeIntervalSinceReferenceDate * 3.6) + CGFloat(barIndex) * 0.35
+        let animationPhase = CGFloat(timelineDate.timeIntervalSinceReferenceDate * 36.0) + CGFloat(barIndex) * 0.35
         let normalizedAudioPowerLevel = max(audioPowerLevel - 0.008, 0)
         let easedAudioPowerLevel = pow(min(normalizedAudioPowerLevel * 2.85, 1), 0.76)
-        let reactiveHeight = easedAudioPowerLevel * 10 * listeningBarProfile[barIndex]
-        let idlePulse = (sin(animationPhase) + 1) / 2 * 1.5
-        return 3 + reactiveHeight + idlePulse
+        let reactiveHeight = easedAudioPowerLevel * listeningBarProfile[barIndex] * 10
+        let idlePulse = (sin(animationPhase) + 1) / 2 * 0.85
+        let overallHeight = reactiveHeight + idlePulse
+        return max(overallHeight, 2)
     }
 }
 
@@ -762,15 +754,22 @@ private struct BlueCursorSpinnerView: View {
                         DS.Colors.overlayCursorBlue.opacity(0.0),
                         DS.Colors.overlayCursorBlue
                     ],
-                    center: .center
+                    center: .center,
+                    startAngle: .radians(0.15 * .pi),
+                    endAngle: .radians(0.85 * .pi)
                 ),
                 style: StrokeStyle(lineWidth: 2.5, lineCap: .round)
             )
+            .shadow(
+                color: DS.Colors.overlayCursorBlue.opacity(0.6),
+                radius: 6,
+                x: 0,
+                y: 0
+            )
             .frame(width: 14, height: 14)
             .rotationEffect(.degrees(isSpinning ? 360 : 0))
-            .shadow(color: DS.Colors.overlayCursorBlue.opacity(0.6), radius: 6, x: 0, y: 0)
             .onAppear {
-                withAnimation(.linear(duration: 0.8).repeatForever(autoreverses: false)) {
+                withAnimation(.linear(duration: 1.0).repeatForever(autoreverses: false)) {
                     isSpinning = true
                 }
             }
@@ -852,7 +851,7 @@ private struct OnboardingVideoPlayerView: NSViewRepresentable {
     let player: AVPlayer?
 
     func makeNSView(context: Context) -> AVPlayerNSView {
-        let view = AVPlayerNSView()
+        let view = AVPlayerNSView(frame: .zero)
         view.player = player
         return view
     }
@@ -864,19 +863,26 @@ private struct OnboardingVideoPlayerView: NSViewRepresentable {
 
 private class AVPlayerNSView: NSView {
     var player: AVPlayer? {
-        didSet { playerLayer.player = player }
+        didSet {
+            playerLayer.player = player
+        }
     }
 
     private let playerLayer = AVPlayerLayer()
 
-    override init(frame: NSRect) {
+    override init(frame frame: NSRect) {
         super.init(frame: frame)
         wantsLayer = true
+        layer = playerLayer
         playerLayer.videoGravity = .resizeAspectFill
-        layer?.addSublayer(playerLayer)
     }
 
-    required init?(coder: NSCoder) { fatalError() }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        wantsLayer = true
+        layer = playerLayer
+        playerLayer.videoGravity = .resizeAspectFill
+    }
 
     override func layout() {
         super.layout()

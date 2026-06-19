@@ -36,10 +36,6 @@ class BoringViewModel: NSObject, ObservableObject {
 
     @Published var notchSize: CGSize = getClosedNotchSize()
     @Published var closedNotchSize: CGSize = getClosedNotchSize()
-
-    /// When the Clicky tab is selected, we can optionally open the notch taller
-    /// based on Clicky content height (measured from SwiftUI).
-    @Published var clickyPreferredOpenHeight: CGFloat? = nil
     
     let webcamManager = WebcamManager.shared
     @Published var isCameraExpanded: Bool = false
@@ -194,25 +190,11 @@ class BoringViewModel: NSObject, ObservableObject {
     }
 
     func open() {
-        applyOpenNotchSizeForCurrentView()
+        self.notchSize = openNotchSize
         self.notchState = .open
         
         // Force music information update when notch is opened
         MusicManager.shared.forceUpdate()
-    }
-
-    /// Adjust open notch height depending on the currently selected tab/page.
-    /// - Clicky: uses measured content height (clamped) if available.
-    /// - Others: default open size.
-    func applyOpenNotchSizeForCurrentView() {
-        let targetHeight: CGFloat
-        if coordinator.currentView == .clicky, let clickyPreferredOpenHeight {
-            targetHeight = clickyPreferredOpenHeight
-        } else {
-            targetHeight = openNotchSize.height
-        }
-
-        self.notchSize = .init(width: openNotchSize.width, height: targetHeight)
     }
 
     func close() {

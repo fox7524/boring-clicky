@@ -2,24 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLICKY_WORKER_BASE_URL</key>
-	<string>$(CLICKY_WORKER_BASE_URL)</string>
-	<key>CLICKY_ENABLE_ONBOARDING_VIDEO_STREAM</key>
-	<false/>
-	<key>CLICKY_ENABLE_EMAIL_SUBMIT</key>
-	<false/>
-	<key>CLICKY_ENABLE_EXTERNAL_LINKS</key>
-	<false/>
-	<key>CLICKY_ENABLE_ANALYTICS</key>
-	<false/>
-	<key>CLICKY_ENABLE_DESKTOP_OVERLAY</key>
-	<false/>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Clicky uses your microphone so you can talk to it.</string>
-	<key>NSScreenCaptureUsageDescription</key>
-	<string>Clicky needs screen recording access to see your screen and help you.</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Clicky uses speech recognition to transcribe your voice when you talk to it.</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

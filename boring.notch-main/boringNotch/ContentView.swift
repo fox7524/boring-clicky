@@ -140,9 +140,7 @@ struct ContentView: View {
                                 handleDownGesture(translation: translation, phase: phase)
                             }
                     }
-                    // IMPORTANT: Clicky tab uses ScrollView and input fields; the "swipe up to close"
-                    // gesture conflicts with scrolling and makes the notch hide while interacting.
-                    .conditionalModifier(Defaults[.closeGestureEnabled] && Defaults[.enableGestures] && coordinator.currentView != .clicky) { view in
+                    .conditionalModifier(Defaults[.closeGestureEnabled] && Defaults[.enableGestures]) { view in
                         view
                             .panGesture(direction: .up) { translation, phase in
                                 handleUpGesture(translation: translation, phase: phase)
@@ -205,11 +203,7 @@ struct ContentView: View {
             }
         }
         .padding(.bottom, 8)
-        .frame(
-            maxWidth: windowSize.width,
-            maxHeight: vm.notchState == .open ? (vm.notchSize.height + shadowPadding) : windowSize.height,
-            alignment: .top
-        )
+        .frame(maxWidth: windowSize.width, maxHeight: windowSize.height, alignment: .top)
         .compositingGroup()
         .scaleEffect(
             x: gestureScale,
@@ -220,13 +214,6 @@ struct ContentView: View {
         .background(dragDetector)
         .preferredColorScheme(.dark)
         .environmentObject(vm)
-        .onChange(of: coordinator.currentView) { _, _ in
-            // When switching tabs while open, allow Clicky to have a taller notch
-            // and reset to default for other tabs.
-            if vm.notchState == .open {
-                vm.applyOpenNotchSizeForCurrentView()
-            }
-        }
         .onChange(of: vm.anyDropZoneTargeting) { _, isTargeted in
             anyDropDebounceTask?.cancel()
 
@@ -362,8 +349,6 @@ struct ContentView: View {
                         NotchHomeView(albumArtNamespace: albumArtNamespace)
                     case .shelf:
                         ShelfView()
-                    case .clicky:
-                        ClickyNotchPage()
                     }
                 }
                 .transition(

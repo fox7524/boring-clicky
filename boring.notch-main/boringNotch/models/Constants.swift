@@ -198,5 +198,23 @@ extension Defaults.Keys {
         }
     }
 
+    // MARK: Clicky
+    static let clickySelectedProvider = Key<AIProvider>(
+        "clickySelectedProvider",
+        default: .anthropic
+    )
+    static let clickySelectedAnthropicModel = Key<String>(
+        "clickySelectedAnthropicModel",
+        default: "claude-sonnet-4-5"
+    )
+    static let clickySelectedOpenAIModel = Key<String>(
+        "clickySelectedOpenAIModel",
+        default: "gpt-4.1"
+    )
+    static let clickySelectedGeminiModel = Key<String>(
+        "clickySelectedGeminiModel",
+        default: "gemini-2.5-pro"
+    )
+
     static let didClearLegacyURLCacheV1 = Key<Bool>("didClearLegacyURLCache_v1", default: false)
 }
